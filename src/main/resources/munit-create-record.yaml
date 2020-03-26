@@ -1,0 +1,8 @@
+db:
+  host: "127.0.0.1"
+  port: "3306"
+  user: "root"
+  pass: "123*456#"
+  database: "sampleDatabase"
+  query: "select * from tutorials_tbl;"
+  config: "fetchFromSampleDb"

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dbserver="http://www.mulesoft.org/schema/mule/dbserver"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" 
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" 
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/dbserver http://www.mulesoft.org/schema/mule/dbserver/current/mule-dbserver.xsd">
+	<munit:config name="munitcreaterecord-test-suite.xml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="cecf61c3-8c99-4508-a53d-21d71d46c5c1" file="munit-create-record.yaml" />
+	<db:config name="Test_Database" doc:name="Database Config" doc:id="19e0c5d6-94de-4339-96b0-3e41c3d91fdd" >
+		<db:generic-connection url="jdbc:h2:tcp://localhost/mem:sampleDatabase" driverClassName="org.h2.Driver" />
+	</db:config>
+	<dbserver:config name="MUnit_DB_Server_Config" doc:name="MUnit DB Server Config" doc:id="98eb7f5c-79fd-4d5b-a35e-c19349788773" >
+		<dbserver:connection csv="tutorials_tbl.csv" database="sampleDatabase" connectionStringParameters="MODE=MySQL"/>
+	</dbserver:config>
+	<munit:test name="munitcreaterecord-test-suite-munitcreaterecordFlowTest" doc:id="fabc37b1-27de-4485-8dc0-99125d9964c6" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to munitcreaterecordFlow" doc:id="0477220c-42cb-4bc6-92bf-3491c6f7abde" name="munitcreaterecordFlow"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="1f92fb40-f0a7-4e9c-8ef9-15ef053ce279" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>
