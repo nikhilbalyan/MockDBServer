@@ -14,6 +14,9 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 		<db:my-sql-connection host="${db.host}" port="${db.port}" user="${db.user}" password="${db.pass}" database="${db.database}" />
 	</db:config>
 	<configuration-properties doc:name="Configuration properties" doc:id="965a20ee-86d2-49d0-9f24-c5383a3b1a56" file="munit-create-record.yaml" />
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="0c99ae01-3bf8-464e-9b1c-1bb9a493b84d" >
+		<http:request-connection host="localhost" port="8081" />
+	</http:request-config>
 	<flow name="munitcreaterecordFlow" doc:id="6e319d9a-b770-4b40-adfd-87a38969c6e6" >
 		<http:listener doc:name="Listener" doc:id="faf5c788-f540-48a4-98b6-92682682b597" config-ref="HTTP_Listener_config" path="record"/>
 		<db:select doc:name="Select" doc:id="1d687a48-e2c6-48b1-9b76-1ea9b2b48146" config-ref="${db.config}">
